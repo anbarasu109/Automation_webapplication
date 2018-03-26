@@ -1,6 +1,11 @@
 package automation.webapp.jenkins;
 
+import org.testng.annotations.AfterTest;
+import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
+import org.testng.Assert;
 import org.testng.AssertJUnit;
 
 /**
@@ -8,22 +13,21 @@ import org.testng.AssertJUnit;
  */
 public class AppTest
 {
-    /**
-     * Create the test case
-     *
-     * @param testName name of the test case
-     */
-    public AppTest( String testName )
-    {
-    }
+	private WebDriver driver;		
 
-    /**
-     * Rigourous Test :-)
-     */
     @Test
 	public void testApp()
     {
-    	System.out.println("helllo log");
-        AssertJUnit.assertTrue( true );
+    	driver.get("http://demo.guru99.com/test/guru99home/");  
+		String title = driver.getTitle();				 
+		Assert.assertTrue(title.contains("Demo Guru99 Page")); 		
     }
+    @BeforeTest
+	public void beforeTest() {	
+	    driver = new FirefoxDriver();  
+	}		
+	@AfterTest
+	public void afterTest() {
+		driver.quit();			
+	}	
 }
